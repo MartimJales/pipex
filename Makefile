@@ -1,6 +1,6 @@
 CC=cc
 
-CFLAGS = -c -Wall -Wextra -Werror
+CFLAGS = -c -g -Wall -Wextra -Werror
 
 NAME = pipex
 
@@ -28,6 +28,9 @@ fclean: clean
 		@rm -rf $(NAME)
 
 re: fclean all
+
+e:	re
+	valgrind -s --track-origins=yes --leak-check=full --log-file="valgrind.txt" ./pipex bro "ls -la" "wc -l" novo
 
 .PHONY: all clean fclean re
 
